@@ -11,20 +11,43 @@
 		    'image' => $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height'])
 		    ]]></search>
 		    <add position="after"><![CDATA[
-		    // << opencart-image-picture-tag
-		    'picture' => $this->load->controller('extension/module/picture/create_srcset',
-				[
-					'image' =>  $result['image'],
-					'width' =>  $this->journal3->settings->get('image_dimensions_product.width'),
-					'height' => $this->journal3->settings->get('image_dimensions_product.height'),
-					'transform' => $this->journal3->settings->get('image_dimensions_product.resize'),
-					'alt' => $result['name'],
-					'title' => $result['name'],
-				]
-		    ),
-		    // >> opencart-image-picture-tag
+					// << opencart-image-picture-tag
+					,
+					'picture' => $this->load->controller('extension/module/picture/create_srcset',
+						[
+							'title' =>  $result['title'],
+							'image' =>  $result['image'],
+							'width' =>  $setting['width'],
+							'height' => $setting['height'],
+							'class'	=>	'img-responsive',
+						]
+				    ),
+					// >> opencart-image-picture-tag
 		    ]]></add>
 		</operation>
-		
+	</file>
+	<file path="catalog/view/theme/*/template/extension/module/slideshow.twig">
+		<operation>
+		    <search><![CDATA[
+		    <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />
+		    ]]></search>
+		    <add position="before"><![CDATA[
+		    {# // << kotygor_opencart_image_picture_tag.ocmod.xml #}
+		    {% if banner.picture %}
+		    {{ banner.picture }}
+		    {% else %}
+		    {# // >> kotygor_opencart_image_picture_tag.ocmod.xml #}
+		    ]]></add>
+		</operation>
+		<operation>
+		    <search><![CDATA[
+		    <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />
+		    ]]></search>
+		    <add position="after"><![CDATA[
+		    {# // << kotygor_opencart_image_picture_tag.ocmod.xml #}
+		    {% endif %}
+		    {# // >> kotygor_opencart_image_picture_tag.ocmod.xml #}
+		    ]]></add>
+		</operation>
 	</file>
 </modification>

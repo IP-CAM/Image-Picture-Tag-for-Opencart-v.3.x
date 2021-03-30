@@ -7,6 +7,7 @@ class ControllerExtensionModulePicture extends Controller {
 //        'png',
     ];
     private $width_set = [
+    	// jd todo Зараз ширини взяті із масиву мобільних емуляторів інструиентів розробника Chrome, тут можна підібрати масив ширин
 	    360,
 		375,
 		415,

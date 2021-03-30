@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Opencart picture tag</name>
+	<version>0.0.1</version>
+	<author>JD</author>
+	<link>zelenuj@gmail.com</link>
+	<code>Opencart picture tag</code>
+	<file path="catalog/controller/extension/module/slideshow.php">
+		<operation>
+		    <search><![CDATA[
+		    'image' => $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height'])
+		    ]]></search>
+		    <add position="after"><![CDATA[
+		    // << opencart-image-picture-tag
+		    'picture' => $this->load->controller('extension/module/picture/create_srcset',
+				[
+					'image' =>  $result['image'],
+					'width' =>  $this->journal3->settings->get('image_dimensions_product.width'),
+					'height' => $this->journal3->settings->get('image_dimensions_product.height'),
+					'transform' => $this->journal3->settings->get('image_dimensions_product.resize'),
+					'alt' => $result['name'],
+					'title' => $result['name'],
+				]
+		    ),
+		    // >> opencart-image-picture-tag
+		    ]]></add>
+		</operation>
+		
+	</file>
+</modification>

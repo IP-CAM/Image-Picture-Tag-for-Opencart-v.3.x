@@ -1,0 +1,15 @@
+{
+	"name": "kotygor/opencart-image-picture-tag",
+	"description": "picture tag",
+	"type": "opencart-extension",
+	"extra": {
+		"installers": {
+			"xml": "install.xml"
+		},
+		"src-dir"		: "upload",
+		"mappings": [
+			"catalog/controller/extension/module/picture.php",
+			"catalog/view/theme/default/template/extension/module/picture.twig"
+		]
+	}
+}

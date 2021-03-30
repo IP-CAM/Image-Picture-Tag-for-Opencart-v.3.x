@@ -1,0 +1,8 @@
+{% if picture %}
+    <picture>
+        {% for mime, source in picture.srcset %}
+            <source type="{{ mime }}" srcset="{% for width,image in source %}{{ image }} {{ width }}{% if not loop.last %},{% endif %}{% endfor %}">
+        {% endfor %}
+        <img{% if picture.class %} class="{{ picture.class }}"{% endif %} src="{{ picture.src }}"{% if picture.alt %} alt="{{ picture.alt }}"{% endif %}{% if picture.title %} title="{{ picture.title }}"{% endif %}/>
+    </picture>
+{% endif %}

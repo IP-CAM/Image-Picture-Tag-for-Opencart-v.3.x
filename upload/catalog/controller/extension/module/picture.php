@@ -45,10 +45,10 @@ class ControllerExtensionModulePicture extends Controller {
 		$transform = 'w'; //$data['transform'];
 
 		$srcset = [];
-
+/* Кешування. Спрацьовує неправильно, бо $filename генерується швидше
 		$filename = DIR_IMAGE . "cache/{$img_path}-{$data['width']}x{$data['height']}.{$info['extension']}";
 		if(!file_exists($filename)) {
-
+*/
 			$requested_width = $data['width'];
 			$requested_height = $data['height'];
 
@@ -154,6 +154,7 @@ class ControllerExtensionModulePicture extends Controller {
 
 				}
 			}
+/* Кешування. Див. вище
 		}
 		else {
 			foreach ($this->formats as $ext => $mime) {
@@ -167,7 +168,7 @@ class ControllerExtensionModulePicture extends Controller {
 
 			}
 		}
-
+*/
 		$srcset['src'] = str_replace([HTTPS_SERVER, '//'], ['', '/'], $this->model_tool_image->resize( // $filename, $width, $height, $type = ''
 			$img,
 			$data['width'],

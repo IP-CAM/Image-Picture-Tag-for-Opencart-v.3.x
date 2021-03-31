@@ -50,4 +50,35 @@
 		    ]]></add>
 		</operation>
 	</file>
+
+	<!-- responsive images -->
+	<file path="catalog/model/tool/image.php">
+		<operation>
+		    <search><![CDATA[
+		    public function resize($filename, $width, $height) {
+		    ]]></search>
+		    <add position="replace"><![CDATA[
+	// << www\system\kotygor_opencart_image_picture_tag.ocmod.xml
+	public function resize($filename, $width, $height, $drop_sizes = false) {
+	// >> www\system\kotygor_opencart_image_picture_tag.ocmod.xml
+		    ]]></add>
+		</operation>
+		<operation>
+		    <search><![CDATA[
+		    $image_old = $filename;
+		    ]]></search>
+		    <add position="after"><![CDATA[
+		// << www\system\kotygor_opencart_image_picture_tag.ocmod.xml
+		if ($drop_sizes) {
+			$filename = preg_replace(
+				"/-(\d+)w\.{$extension}/",
+				".{$extension}",
+				$filename
+			);
+		}
+		// >> www\system\kotygor_opencart_image_picture_tag.ocmod.xml
+		    ]]></add>
+		</operation>
+
+	</file>
 </modification>

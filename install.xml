@@ -5,7 +5,7 @@
 	<author>JD</author>
 	<link>zelenuj@gmail.com</link>
 	<code>Opencart picture tag</code>
-	<file path="catalog/controller/extension/module/slideshow.php">
+	<file path="catalog/controller/extension/module/{banner,slideshow}.php">
 		<operation>
 		    <search><![CDATA[
 		    'image' => $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height'])
@@ -26,7 +26,7 @@
 		    ]]></add>
 		</operation>
 	</file>
-	<file path="catalog/view/theme/*/template/extension/module/slideshow.twig">
+	<file path="catalog/view/theme/*/template/extension/module/{banner,slideshow}.twig">
 		<operation>
 		    <search><![CDATA[
 		    <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />

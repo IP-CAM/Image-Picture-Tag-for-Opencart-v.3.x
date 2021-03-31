@@ -11,5 +11,8 @@
 			"catalog/controller/extension/module/picture.php",
 			"catalog/view/theme/default/template/extension/module/picture.twig"
 		]
+	},
+	"require": {
+		"php": ">=7.0.0"
 	}
 }

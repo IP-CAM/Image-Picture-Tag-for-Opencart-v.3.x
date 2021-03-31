@@ -81,9 +81,9 @@ class ControllerExtensionModulePicture extends Controller {
 				} */
 				foreach ($this->width_set as $responsive_width) {
 					// Не генерувати зображення більші ніж оригінал
-//				if($src_width < $responsive_width) {
-//					continue;
-//				}
+					if($src_width < $responsive_width) {
+						continue;
+					}
 
 
 					if ($source_img_width < $responsive_width && count($source_img_set) > 1) {

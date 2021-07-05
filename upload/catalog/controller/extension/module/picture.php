@@ -1,26 +1,15 @@
 <?php
 class ControllerExtensionModulePicture extends Controller {
-    private $formats = [ // mime-types
-	    // jd todo Підтримка png / jp2 / webp / jpg
-//        'webp' =>   'image/webp', // jd todo Підтримка webp
-        'jpg'  =>   'image/jpeg',
-//        'png',
-    ];
-    private $width_set = [
-    	// jd todo Зараз ширини взяті із масиву мобільних емуляторів інструиентів розробника Chrome, тут можна підібрати масив ширин
-	    // Рекомендовані розміри оригіналів зображень для банерів 3840*1200 для книжкової орієнтації і 2160*3040 для альбомної
-	    360,
-		375,
-		415,
-		540,
-		650,
-		768,
-		823,
-		1024,
-		1280,   // HD       720p    -   1280*720    16:9
-		1920,   // FullHD   1080p   -   1920*1080   16:9
-	    //3840    // 4K UHD   2160p   -   3840*2160   16:9  /* 2х зображення генерується автоматично */
-    ];
+    private $formats = [];
+    private $width_set = [];
+
+    public function __construct($registry) {
+    	parent::__construct($registry);
+	    $this->config->load('extra/picture');
+
+	    $this->formats = $this->config->get('module_picture_formats');
+	    $this->width_set = $this->config->get('module_picture_width_set');
+    }
 
 
     public function index($data) {
@@ -28,7 +17,6 @@ class ControllerExtensionModulePicture extends Controller {
     }
 
 	public function create_srcset($data) {
-
 		$img =
 			('' != $data['image']
 				&& file_exists(DIR_IMAGE . $data['image'])
@@ -42,7 +30,7 @@ class ControllerExtensionModulePicture extends Controller {
 		$alt = !empty($data['alt']) ? $data['alt'] : "";
 		$title = !empty($data['title']) ? $data['title'] : "";
 		$class = !empty($data['class']) ? $data['class'] : "";
-		$transform = 'w'; //$data['transform'];
+		$transform = $this->config->get('module_picture_transform'); //$data['transform'];
 
 		$srcset = [];
 /* Кешування. Спрацьовує неправильно, бо $filename генерується швидше
@@ -62,7 +50,7 @@ class ControllerExtensionModulePicture extends Controller {
 			// jd todo Перевірити існування забражень типу image_name-_width_w.ext
 			$source_img_set = $this->getImgSet($data['image']);
 			if (count($source_img_set) > 1) {
-//			unset($source_img_set[0]); // Видалення оригіналу, він у нас в $data['image']
+				// Починаємо з найменшої ширини зображення
 				$source_img_width = array_key_first($source_img_set);
 				$source_img = new Image(DIR_IMAGE . $source_img_set[$source_img_width] . '.' . $info['extension']);
 				$requested_height = $source_img_height = $source_img->getHeight();

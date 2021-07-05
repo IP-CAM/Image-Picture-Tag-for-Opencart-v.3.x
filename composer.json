@@ -9,7 +9,8 @@
 		"src-dir"		: "upload",
 		"mappings": [
 			"catalog/controller/extension/module/picture.php",
-			"catalog/view/theme/default/template/extension/module/picture.twig"
+			"catalog/view/theme/default/template/extension/module/picture.twig",
+			"system/config/extra/picture.php"
 		]
 	},
 	"require": {

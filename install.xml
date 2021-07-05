@@ -20,6 +20,7 @@
 							'width' =>  $setting['width'],
 							'height' => $setting['height'],
 							'class'	=>	'img-responsive',
+							'ignore_source_scale'   =>  true,
 						]
 				    ),
 					// >> opencart-image-picture-tag

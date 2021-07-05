@@ -41,8 +41,13 @@ class ControllerExtensionModulePicture extends Controller {
 			$requested_height = $data['height'];
 
 
-			$requested_scale = $source_scale = $requested_height / $requested_width;
-
+			if(!empty($data['ignore_source_scale']) && $this->config->get('module_picture_allow_ignore_source_scale')) {
+				$ignore_source_scale = true;
+			}
+			else {
+				$ignore_source_scale = false;
+				$requested_scale = $source_scale = $requested_height / $requested_width;
+			}
 
 			$src_img = new Image(DIR_IMAGE . $data['image']);
 			$src_width = $src_img->getWidth();
@@ -102,7 +107,13 @@ class ControllerExtensionModulePicture extends Controller {
 					} elseif ($source_img_width == $responsive_width) {
 						$requested_height = $source_img_height;
 					} elseif ($source_img_width > $responsive_width && !empty($source_img_set[$source_img_width])) {
-						$requested_height = $source_scale * $responsive_width;
+						if($ignore_source_scale) {
+							$requested_height = $source_img->getHeight() / $source_img->getWidth() * $responsive_width;
+						}
+						else {
+							$requested_height = $source_scale * $responsive_width;
+						}
+
 						$img_path = $source_img_set[$source_img_width];
 					} elseif ($source_img_width > $responsive_width) {
 						$requested_height = $responsive_width * $requested_scale;
